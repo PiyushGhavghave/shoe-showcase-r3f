@@ -1,18 +1,20 @@
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Environment , Center} from "@react-three/drei";
-import Shoe from "./Shoe";
+import Model from "./Model";
+
 import "./App.css";
+import { UploadModel } from "./UploadModel";
+import { useState } from "react";
 
 export default function App() {
+  const [modelUrl, setModelUrl] = useState("/nike_air_zoom_pegasus_36-transformed.glb");
   return (
     <div className="showcase">
       {/* Left Section */}
       <div className="info">
-        <h1 className="title">Nike Air Zoom</h1>
-        <p className="subtitle">
-          Elevate your style and performance with next-gen comfort.
-        </p>
-        <button className="cta-button">Shop Now</button>
+        <h1 className="title">3D Model Viewer</h1>
+        <p className="subtitle">Upload your own .glb or .gltf file to preview in 3D.</p>
+        <UploadModel onUpload={setModelUrl} />
       </div>
 
       {/* Right Section */}
@@ -21,7 +23,7 @@ export default function App() {
           <ambientLight intensity={0.6} />
           <directionalLight position={[5, 5, 5]} intensity={1} />
           <Center>
-            <Shoe />
+            <Model url={modelUrl} />
           </Center>
           <OrbitControls enablePan={false} />
           <Environment preset="studio" />
